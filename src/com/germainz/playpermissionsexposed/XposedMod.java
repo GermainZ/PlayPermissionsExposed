@@ -31,8 +31,6 @@ import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class XposedMod implements IXposedHookLoadPackage {
-
-
     protected static final HashMap<String, List<String>> PERMISSION_BUCKETS = new HashMap<String, List<String>>();
 
     static {
@@ -110,7 +108,6 @@ public class XposedMod implements IXposedHookLoadPackage {
                 "android.permission.ACCESS_WIFI_STATE"
         ));
     }
-
 
     @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
@@ -350,7 +347,7 @@ public class XposedMod implements IXposedHookLoadPackage {
         return getDrawableRes("ic_perm_unknown", res);
     }
 
-    private String getOwnString(Context context, int resId, Object... formatArgs) {
+    private static String getOwnString(Context context, int resId, Object... formatArgs) {
         Context packageContext;
         try {
             packageContext = context.createPackageContext("com.germainz.playpermissionsexposed",
@@ -363,5 +360,4 @@ public class XposedMod implements IXposedHookLoadPackage {
         else
             return packageContext.getString(resId);
     }
-
 }
