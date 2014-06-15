@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PlayPermissionsExposed</string>
+    <string name="xposed_description">Prikaže vsa pooblastila v trgovini Play, prepreči prikrivanje ~40 pooblastil,
+        in onemogoči avtomatično nadgradnjo kadar aplikacija zahteva nova pooblastila.</string>
+
+    <string name="existing_permissions">Pooblastila: %1$. Dotakni se za podrobnosti.</string>
+    <string name="this_application">Ta aplikacija</string>
+    <string name="no_description">Opis ni na voljo.</string>
+</resources>
