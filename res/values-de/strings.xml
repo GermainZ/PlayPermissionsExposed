@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="existing_permissions">%1$d Berechtigungen. Antippen für Details.</string>
+    <string name="this_application">diese App</string>
+    <string name="no_description">Keine Beschreibung vorhanden.</string>
+</resources>
