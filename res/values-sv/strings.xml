@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PlayPermissionsExposed</string>
+    <string name="xposed_description">Visar alla behörigheter i Play Store, slutar gömma/ignorera ~40 behörigheter, 
+      och inaktiverar automatisk uppdatering när nya behörigheter läggs till.</string>
+
+    <string name="existing_permissions">%1$d behörigheter. Tryck för mer information.</string>
+    <string name="this_application">Denna applikation</string>
+    <string name="no_description">Ingen beskrivning tillgänglig.</string>
+</resources>
