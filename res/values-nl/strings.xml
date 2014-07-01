@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PlaypermissiesExposed</string>
+    <string name="xposed_description">Laat alle permissies zien in de Play Store, stopt verbergen/negeren van ~40 permissies,
+        en zet auto-updating uit als er nieuwe permissies zijn toegevoegd.</string>
+
+    <string name="existing_permissies">%1$d permissies. Raak aan voor details.</string>
+    <string name="this_application">Deze applicatie</string>
+    <string name="no_description">Geen beschrijving beschikbaar.</string>
+</resources>
