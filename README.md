@@ -3,7 +3,7 @@ Introduction
 The newer Play Store versions bring the following changes in regards to permissions:
 * Permissions are now shown under vague categories when you press the "Update"/"Install" buttons. 42 permissions are also hidden from this screen (list below). To see almost all individual permissions, you can scroll down and tap "View details". Also note that unknown permissions (those defined by apps) are usually hidden in both screens.
 * Auto-updates only check for new categories, not new permissions.
-For more info, I'd recommend you read [this](http://www.xda-developers.com/android/play-store-permissions-change-opens-door-to-rogue-apps/") article by pulser_g2.
+For more info, I'd recommend you read [this](http://www.xda-developers.com/android/play-store-permissions-change-opens-door-to-rogue-apps/) article by pulser_g2.
 
 Purpose of this module
 ======================
