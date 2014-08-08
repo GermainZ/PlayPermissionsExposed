@@ -155,7 +155,7 @@ public class XposedMod implements IXposedHookLoadPackage {
                                 name = permissionInfo.loadLabel(packageManager);
                             } catch (PackageManager.NameNotFoundException ignored) {
                                 longDescription = null;
-                                name = permission;
+                                name = null;
                             }
                             CharSequence shortDescription = null;
                             newPermissionsData.add(new PermissionData(permission, name, shortDescription,
@@ -171,7 +171,7 @@ public class XposedMod implements IXposedHookLoadPackage {
                                 name = permissionInfo.loadLabel(packageManager);
                             } catch (PackageManager.NameNotFoundException e) {
                                 longDescription = null;
-                                name = permission;
+                                name = null;
                             }
                             CharSequence shortDescription = null;
                             oldPermissionsData.add(new PermissionData(permission, name, shortDescription,

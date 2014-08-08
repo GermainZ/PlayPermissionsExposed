@@ -8,7 +8,9 @@ public class PermissionData {
 
     public PermissionData(String permission, CharSequence name, CharSequence shortDescription, CharSequence longDescription) {
         this.permission = permission;
-        if (name.length() > 0)
+        if (name == null)
+            this.name = permission;
+        else if (name.length() > 0)
             this.name = ((String) name).substring(0, 1).toUpperCase() + ((String) name).substring(1);
         else
             this.name = (String) name;
