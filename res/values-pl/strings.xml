@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PlayPermissionsExposed</string>
+    <string name="xposed_description">Pokazuje wszystkie uprawnienia w Sklepie Play, usuwa ignorowanie/ukrywanie ~40 uprawnień,
+        i wyłącza auto aktualizacje kiedy aplikacja żąda nowych uprawnień.</string>
+
+    <string name="existing_permissions">%1$d uprawnień. Dotknij aby zobaczyć szczegóły.</string>
+    <string name="this_application">Ta aplikacja</string>
+    <string name="no_description">Brak opisu.</string>
+</resources>
