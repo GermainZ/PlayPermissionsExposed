@@ -39,79 +39,75 @@ public class XposedMod implements IXposedHookLoadPackage {
     protected static final HashMap<String, List<String>> PERMISSION_BUCKETS = new HashMap<String, List<String>>();
 
     static {
+        PERMISSION_BUCKETS.put("ic_perm_bluetooth_discovery", Arrays.asList(
+                "android.permission.BLUETOOTH", "android.permission.BLUETOOTH_ADMIN",
+                "android.permission.BLUETOOTH_PRIVILEGED"
+        ));
+        PERMISSION_BUCKETS.put("ic_perm_body_motion", Arrays.asList(
+                "android.permission.BODY_SENSORS"
+        ));
+        PERMISSION_BUCKETS.put("ic_perm_cal", Arrays.asList(
+                "android.permission.READ_CALENDAR", "android.permission.WRITE_CALENDAR"
+        ));
+        PERMISSION_BUCKETS.put("ic_perm_camera", Arrays.asList(
+                "android.permission.CAMERA", "android.permission.RECORD_VIDEO"
+        ));
+        PERMISSION_BUCKETS.put("ic_perm_contacts", Arrays.asList(
+                "android.permission.READ_CONTACTS", "android.permission.WRITE_CONTACTS"
+        ));
+        PERMISSION_BUCKETS.put("ic_perm_data_setting", Arrays.asList(
+                "android.permission.CHANGE_CONFIGURATION", "android.permission.CLEAR_APP_CACHE",
+                "android.permission.DISABLE_KEYGUARD", "android.permission.SET_TIME_ZONE",
+                "android.permission.SET_WALLPAPER", "android.permission.SET_WALLPAPER_HINTS",
+                "android.permission.WRITE_APN_SETTINGS", "android.permission.WRITE_SECURE_SETTINGS",
+                "android.permission.WRITE_SETTINGS", "android.permission.WRITE_SYNC_SETTINGS"
+        ));
+        PERMISSION_BUCKETS.put("ic_perm_deviceid", Arrays.asList(
+                "android.permission.PACKAGE_USAGE_STATS", "android.permission.READ_PHONE_STATE"
+        ));
+        PERMISSION_BUCKETS.put("ic_perm_history", Arrays.asList(
+                "android.permission.READ_LOGS", "android.permission.GET_TASKS",
+                "android.permission.DUMP", "com.android.browser.permission.READ_HISTORY_BOOKMARKS"
+        ));
+        PERMISSION_BUCKETS.put("ic_perm_identity", Arrays.asList(
+                "android.permission.GET_ACCOUNTS", "android.permission.GET_ACCOUNTS_PRIVILEGED",
+                "android.permission.MANAGE_ACCOUNTS", "android.permission.READ_PROFILE",
+                "android.permission.WRITE_PROFILE"
+        ));
         PERMISSION_BUCKETS.put("ic_perm_in_app_purchases", Arrays.asList(
                 "com.android.vending.BILLING"
         ));
-        PERMISSION_BUCKETS.put("ic_perm_camera_microphone", Arrays.asList(
-                "android.permission.CAMERA", "android.permission.RECORD_AUDIO",
-                "android.permission.RECORD_VIDEO"
-        ));
-        PERMISSION_BUCKETS.put("ic_perm_cal", Arrays.asList(
-                "android.permission.READ_CONTACTS", "android.permission.WRITE_CONTACTS",
-                "android.permission.READ_CALENDAR", "android.permission.WRITE_CALENDAR"
-        ));
-        PERMISSION_BUCKETS.put("ic_perm_history", Arrays.asList(
-                "android.permission.READ_LOGS", "android.permission.GET_TASKS", "android.permission.DUMP",
-                "com.android.browser.permission.READ_HISTORY_BOOKMARKS"
-        ));
-        PERMISSION_BUCKETS.put("ic_perm_deviceid", Arrays.asList(
-                "android.permission.READ_PHONE_STATE"
-        ));
-        PERMISSION_BUCKETS.put("ic_perm_identity", Arrays.asList(
-                "android.permission.GET_ACCOUNTS", "android.permission.MANAGE_ACCOUNTS",
-                "android.permission.READ_PROFILE", "android.permission.WRITE_PROFILE"
-        ));
-        PERMISSION_BUCKETS.put("ic_perm_unknown", Arrays.asList(
-                "android.permission.ACCESS_MOCK_LOCATION", "android.permission.ACCESS_NETWORK_STATE",
-                "android.permission.ACCOUNT_MANAGER", "android.permission.AUTHENTICATE_ACCOUNTS",
-                "android.permission.BATTERY_STATS", "android.permission.BLUETOOTH",
-                "android.permission.BLUETOOTH_ADMIN", "android.permission.BROADCAST_STICKY",
-                "android.permission.CHANGE_CONFIGURATION", "android.permission.CHANGE_NETWORK_STATE",
-                "android.permission.CHANGE_WIFI_MULTICAST_STATE", "android.permission.CHANGE_WIFI_STATE",
-                "android.permission.CHANGE_WIMAX_STATE", "android.permission.CLEAR_APP_CACHE",
-                "android.permission.DISABLE_KEYGUARD", "android.permission.EXPAND_STATUS_BAR",
-                "android.permission.FLASHLIGHT", "android.permission.GET_PACKAGE_SIZE", "android.permission.INTERNET",
-                "android.permission.KILL_BACKGROUND_PROCESSES", "android.permission.MODIFY_AUDIO_SETTINGS",
-                "android.permission.NFC", "android.permission.PERSISTENT_ACTIVITY",
-                "android.permission.READ_SYNC_SETTINGS", "android.permission.READ_USER_DICTIONARY",
-                "android.permission.RECEIVE_BOOT_COMPLETED", "android.permission.REORDER_TASKS",
-                "android.permission.SERIAL_PORT", "android.permission.SET_ALWAYS_FINISH",
-                "android.permission.SET_ANIMATION_SCALE", "android.permission.SET_DEBUG_APP",
-                "android.permission.SET_PREFERRED_APPLICATIONS", "android.permission.SET_PROCESS_LIMIT",
-                "android.permission.SET_TIME_ZONE", "android.permission.SET_WALLPAPER",
-                "android.permission.SIGNAL_PERSISTENT_PROCESSES", "android.permission.SYSTEM_ALERT_WINDOW",
-                "android.permission.USE_CREDENTIALS", "android.permission.USE_SIP", "android.permission.VIBRATE",
-                "android.permission.WAKE_LOCK", "android.permission.WRITE_SETTINGS",
-                "android.permission.WRITE_SYNC_SETTINGS", "android.permission.WRITE_USER_DICTIONARY",
-                "com.android.alarm.permission.SET_ALARM", "com.android.browser.permission.WRITE_HISTORY_BOOKMARKS",
-                "com.android.launcher.permission.INSTALL_SHORTCUT",
-                "com.android.launcher.permission.UNINSTALL_SHORTCUT", "com.android.vending.CHECK_LICENSE",
-                "com.google.android.providers.gsf.permission.READ_GSERVICES"
-        ));
         PERMISSION_BUCKETS.put("ic_perm_location", Arrays.asList(
                 "android.permission.ACCESS_COARSE_LOCATION", "android.permission.ACCESS_FINE_LOCATION",
-                "android.permission.ACCESS_LOCATION_EXTRA_COMMANDS", "android.permission.ACCESS_GPS"
-        ));
-        PERMISSION_BUCKETS.put("ic_perm_phone", Arrays.asList(
-                "android.permission.CALL_PHONE", "android.permission.WRITE_CALL_LOG",
-                "android.permission.READ_CALL_LOG", "android.permission.CALL_PRIVILEGED",
-                "android.permission.PROCESS_OUTGOING_CALLS", "android.permission.MODIFY_PHONE_STATE"
+                "android.permission.ACCESS_LOCATION_EXTRA_COMMANDS", "android.permission.ACCESS_GPS",
+                "android.permission.ACCESS_MOCK_LOCATION"
         ));
         PERMISSION_BUCKETS.put("ic_perm_media", Arrays.asList(
                 "android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE",
                 "android.permission.MOUNT_FORMAT_FILESYSTEMS", "android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         ));
-        PERMISSION_BUCKETS.put("ic_perm_data_settings", Arrays.asList(
-                "android.permission.WRITE_APN_SETTINGS"
-        ));
         PERMISSION_BUCKETS.put("ic_perm_messaging", Arrays.asList(
-                "android.permission.RECEIVE_SMS", "android.permission.READ_SMS", "android.permission.WRITE_SMS",
+                "android.permission.BROADCAST_SMS", "android.permission.RECEIVE_SMS",
+                "android.permission.READ_SMS", "android.permission.WRITE_SMS",
                 "android.permission.SEND_SMS", "android.permission.RECEIVE_MMS",
                 "android.permission.RECEIVE_WAP_PUSH"
         ));
-        PERMISSION_BUCKETS.put("ic_perm_scan_wifi", Arrays.asList(
-                "android.permission.ACCESS_WIFI_STATE"
+        PERMISSION_BUCKETS.put("ic_perm_microphone", Arrays.asList(
+                "android.permission.CAPTURE_AUDIO_OUTPUT", "android.permission.RECORD_AUDIO"
         ));
+        PERMISSION_BUCKETS.put("ic_perm_phone", Arrays.asList(
+                "android.permission.CALL_PHONE", "android.permission.CALL_PRIVILEGED",
+                "android.permission.MODIFY_PHONE_STATE", "android.permission.PROCESS_OUTGOING_CALLS",
+                "android.permission.READ_CALL_LOG", "android.permission.WRITE_CALL_LOG"
+        ));
+        PERMISSION_BUCKETS.put("ic_perm_scan_wifi", Arrays.asList(
+                "android.permission.ACCESS_NETWORK_STATE", "android.permission.ACCESS_WIFI_STATE",
+                "android.permission.CHANGE_NETWORK_STATE", "android.permission.CHANGE_WIFI_MULTICAST_STATE",
+                "android.permission.CHANGE_WIFI_STATE", "android.permission.CHANGE_WIMAX_STATE",
+                "android.permission.INTERNET"
+        ));
+
+        // Everything else uses the "ic_perm_unknown" icon by default, no need to specify them
     }
 
     @Override
@@ -164,10 +160,10 @@ public class XposedMod implements IXposedHookLoadPackage {
 
                         newPermissions.removeAll(oldPermissions);
 
-                        boolean hasnewPermissions = (newPermissions.size() > 0);
+                        boolean hasNewPermissions = (newPermissions.size() > 0);
 
                         Object permissionData = param.getResult();
-                        setBooleanField(permissionData, "mForcePermissionPrompt", hasnewPermissions);
+                        setBooleanField(permissionData, "mForcePermissionPrompt", hasNewPermissions);
 
                         Context context = AndroidAppHelper.currentApplication();
                         PackageManager packageManager = context.getPackageManager();
@@ -250,7 +246,7 @@ public class XposedMod implements IXposedHookLoadPackage {
                             if (index == 0) {
                                 TextView textView = (TextView) layoutInflater.inflate(
                                         getLayoutRes("no_permissions_required", res), viewGroup, false);
-                                textView.setText(Html.fromHtml(res.getString(getStringRes("no_new_dangerous_permissions", res),
+                                textView.setText(Html.fromHtml(res.getString(getNoNewPermsStrRes(res),
                                         getOwnString(context, R.string.this_application))));
                                 return textView;
                             } else {
@@ -283,13 +279,9 @@ public class XposedMod implements IXposedHookLoadPackage {
             @Override
             public void onClick(View view) {
                 boolean expanded = (contentTextView.getVisibility() == View.GONE);
-                if (expanded) {
-                    expanderIcon.setImageResource(getDrawableRes("ic_more_arrow_up", res));
-                    contentTextView.setVisibility(View.VISIBLE);
-                } else {
-                    expanderIcon.setImageResource(getDrawableRes("ic_more_arrow_down", res));
-                    contentTextView.setVisibility(View.GONE);
-                }
+
+                expanderIcon.setImageResource(getArrowIconRes(expanded, res));
+                contentTextView.setVisibility(expanded ? View.VISIBLE : View.GONE);
             }
         });
         return view;
@@ -316,15 +308,10 @@ public class XposedMod implements IXposedHookLoadPackage {
             @Override
             public void onClick(View view) {
                 boolean expanded = (Boolean) permissionRow.getTag();
-                if (!expanded) {
-                    expanderIcon.setImageResource(getDrawableRes("ic_more_arrow_up", res));
-                    detailedBuckets.setVisibility(View.VISIBLE);
-                    shortDescription.setVisibility(View.GONE);
-                } else {
-                    expanderIcon.setImageResource(getDrawableRes("ic_more_arrow_down", res));
-                    detailedBuckets.setVisibility(View.GONE);
-                    shortDescription.setVisibility(View.VISIBLE);
-                }
+
+                expanderIcon.setImageResource(getArrowIconRes(!expanded, res));
+                detailedBuckets.setVisibility(expanded ? View.GONE : View.VISIBLE);
+                shortDescription.setVisibility(expanded ? View.VISIBLE : View.GONE);
                 permissionRow.setTag(!expanded);
             }
         });
@@ -349,33 +336,61 @@ public class XposedMod implements IXposedHookLoadPackage {
         }
     }
 
-    private int getResource(String name, String type, Resources res) {
+    private static int getResource(String name, String type, Resources res) {
         return res.getIdentifier(name, type, "com.android.vending");
     }
 
-    private int getIdRes(String name, Resources res) {
+    private static int getIdRes(String name, Resources res) {
         return getResource(name, "id", res);
     }
 
-    private int getDrawableRes(String name, Resources res) {
+    private static int getDrawableRes(String name, Resources res) {
         return getResource(name, "drawable", res);
     }
 
-    private int getStringRes(String name, Resources res) {
+    private static int getStringRes(String name, Resources res) {
         return getResource(name, "string", res);
     }
 
-    private int getLayoutRes(String name, Resources res) {
+    private static int getLayoutRes(String name, Resources res) {
         return getResource(name, "layout", res);
     }
 
-    private int getBucketIconRes(String permission, Resources res) {
+    private static int getArrowIconRes(boolean up, Resources res) {
+        // Works for 5.4.x - 6.0.5 EXCEPT v5.7.x and 5.8.x
+        int id = getDrawableRes(up ? "ic_menu_expander_maximized_light" : "ic_menu_expander_minimized_light", res);
+        if (id == 0) {
+            // Works from 5.4.x - 5.8.x
+            id = getDrawableRes(up ? "ic_more_arrow_up" : "ic_more_arrow_down", res);
+        }
+        return id;
+    }
+
+    private static int getNoNewPermsStrRes(Resources res) {
+        // Versions 5.6.x - 6.0.5
+        int id = getStringRes("no_new_dangerous_permissions", res);
+        if (id == 0) {
+            // Versions 5.4.x - 5.5.x
+            id = getStringRes("no_new_permissions", res);
+        }
+        return id;
+    }
+
+    private static int getBucketIconRes(String permission, Resources res) {
         for (HashMap.Entry<String, List<String>> entry : PERMISSION_BUCKETS.entrySet()) {
             String icon = entry.getKey();
             List<String> permissions = entry.getValue();
-            if (permissions.contains(permission))
-                return getDrawableRes(icon, res);
+            if (permissions.contains(permission)) {
+                int res_id = getDrawableRes(icon, res);
+                if (res_id == 0) {
+                    // Proper icon doesn't exist for this version, use the 'unknown' one
+                    break;
+                }
+                return res_id;
+            }
+
         }
+        // Works for all versions 5.4.x - 6.0.5
         return getDrawableRes("ic_perm_unknown", res);
     }
 
