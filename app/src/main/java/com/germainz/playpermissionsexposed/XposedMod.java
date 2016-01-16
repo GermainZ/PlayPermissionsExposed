@@ -2,6 +2,7 @@ package com.germainz.playpermissionsexposed;
 
 import android.app.AndroidAppHelper;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.content.res.Resources;
@@ -13,12 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
-import static de.robv.android.xposed.XposedHelpers.getAdditionalInstanceField;
-import static de.robv.android.xposed.XposedHelpers.getObjectField;
-import static de.robv.android.xposed.XposedHelpers.setAdditionalInstanceField;
-import static de.robv.android.xposed.XposedHelpers.setBooleanField;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,6 +24,16 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+
+import static de.robv.android.xposed.XposedHelpers.callMethod;
+import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
+import static de.robv.android.xposed.XposedHelpers.findAndHookConstructor;
+import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
+import static de.robv.android.xposed.XposedHelpers.findClass;
+import static de.robv.android.xposed.XposedHelpers.getAdditionalInstanceField;
+import static de.robv.android.xposed.XposedHelpers.getObjectField;
+import static de.robv.android.xposed.XposedHelpers.setAdditionalInstanceField;
+import static de.robv.android.xposed.XposedHelpers.setBooleanField;
 
 public class XposedMod implements IXposedHookLoadPackage {
     protected static final HashMap<String, List<String>> PERMISSION_BUCKETS = new HashMap<String, List<String>>();
@@ -114,6 +119,29 @@ public class XposedMod implements IXposedHookLoadPackage {
         if (!lpparam.packageName.equals("com.android.vending"))
             return;
 
+        findAndHookConstructor("com.google.android.finsky.layout.AppPermissionAdapter", lpparam.classLoader,
+                Context.class, String.class, String[].class, boolean.class,
+                new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        try {
+                            // If using version 5.4.x - 5.9.x, mData is already set
+                            getObjectField(param.thisObject, "mData");
+                        } catch (NoSuchFieldError e) {
+                            // Make and set the mData field for versions 5.10.x - 6.0.5
+                            PackageManager pm = (PackageManager) callMethod(param.args[0], "getPackageManager");
+                            PackageInfo pi = (PackageInfo) callMethod(param.thisObject, "getPackageInfo", pm, param.args[1]);
+                            Set<String> perms = (Set<String>) callMethod(param.thisObject, "loadLocalAssetPermissions", pi);
+
+                            Class PermissionsBucketer = findClass("com.google.android.finsky.utils.PermissionsBucketer", lpparam.classLoader);
+                            Object permissionData = callStaticMethod(PermissionsBucketer, "getPermissionBuckets",
+                                    param.args[2], perms, param.args[3]);
+                            setAdditionalInstanceField(param.thisObject, "mData", permissionData);
+                        }
+                    }
+                }
+        );
+
         findAndHookMethod("com.google.android.finsky.utils.PermissionsBucketer", lpparam.classLoader,
                 "getPermissionBuckets",
                 String[].class, Set.class, boolean.class, boolean.class,
@@ -192,9 +220,8 @@ public class XposedMod implements IXposedHookLoadPackage {
                 "getCount", new XC_MethodReplacement() {
                     @Override
                     protected Object replaceHookedMethod(final MethodHookParam param) throws Throwable {
-                        Object mData = getObjectField(param.thisObject, "mData");
-                        int count = (Integer) getAdditionalInstanceField(mData, "adapterSize");
-                        return count;
+                        Object mData = getAnyInstanceField(param.thisObject, "mData");
+                        return getAdditionalInstanceField(mData, "adapterSize");
                     }
                 }
         );
@@ -203,7 +230,8 @@ public class XposedMod implements IXposedHookLoadPackage {
                 "getView", int.class, View.class, ViewGroup.class, new XC_MethodReplacement() {
                     @Override
                     protected Object replaceHookedMethod(final MethodHookParam param) throws Throwable {
-                        Object mData = getObjectField(param.thisObject, "mData");
+                        Object mData = getAnyInstanceField(param.thisObject, "mData");
+
                         ViewGroup viewGroup = (ViewGroup) param.args[2];
                         Context context = (Context) getObjectField(param.thisObject, "mContext");
                         LayoutInflater layoutInflater = (LayoutInflater) getObjectField(param.thisObject,
@@ -311,6 +339,14 @@ public class XposedMod implements IXposedHookLoadPackage {
         }
 
         return view;
+    }
+
+    private static Object getAnyInstanceField(Object obj, String fieldName) {
+        try {
+            return getObjectField(obj, fieldName);
+        } catch (NoSuchFieldError e) {
+            return getAdditionalInstanceField(obj, fieldName);
+        }
     }
 
     private int getResource(String name, String type, Resources res) {
