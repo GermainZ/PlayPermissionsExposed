@@ -146,36 +146,32 @@ public class XposedMod implements IXposedHookLoadPackage {
                         ArrayList<PermissionData> newPermissionsData = new ArrayList<PermissionData>();
                         ArrayList<PermissionData> oldPermissionsData = new ArrayList<PermissionData>();
                         for (String permission : newPermissions) {
-                            CharSequence longDescription;
+                            CharSequence description;
                             CharSequence name;
                             try {
                                 PermissionInfo permissionInfo = packageManager.getPermissionInfo(permission,
                                         PackageManager.GET_META_DATA);
-                                longDescription = permissionInfo.loadDescription(packageManager);
+                                description = permissionInfo.loadDescription(packageManager);
                                 name = permissionInfo.loadLabel(packageManager);
                             } catch (PackageManager.NameNotFoundException ignored) {
-                                longDescription = null;
+                                description = null;
                                 name = null;
                             }
-                            CharSequence shortDescription = null;
-                            newPermissionsData.add(new PermissionData(permission, name, shortDescription,
-                                    longDescription));
+                            newPermissionsData.add(new PermissionData(permission, name, description));
                         }
                         for (String permission : oldPermissions) {
                             CharSequence name;
-                            CharSequence longDescription;
+                            CharSequence description;
                             try {
                                 PermissionInfo permissionInfo = packageManager.getPermissionInfo(permission,
                                         PackageManager.GET_META_DATA);
-                                longDescription = permissionInfo.loadDescription(packageManager);
+                                description = permissionInfo.loadDescription(packageManager);
                                 name = permissionInfo.loadLabel(packageManager);
                             } catch (PackageManager.NameNotFoundException e) {
-                                longDescription = null;
+                                description = null;
                                 name = null;
                             }
-                            CharSequence shortDescription = null;
-                            oldPermissionsData.add(new PermissionData(permission, name, shortDescription,
-                                    longDescription));
+                            oldPermissionsData.add(new PermissionData(permission, name, description));
                         }
 
                         setAdditionalInstanceField(permissionData, "newPermissionsData", newPermissionsData);
@@ -249,9 +245,9 @@ public class XposedMod implements IXposedHookLoadPackage {
         ImageView bucketIcon = (ImageView) view.findViewById(getIdRes("bucket_icon", res));
 
         headerTextView.setText(permissionData.name);
-        contentTextView.setText(permissionData.longDescription == null ?
+        contentTextView.setText(permissionData.description == null ?
                 getOwnString(AndroidAppHelper.currentApplication(), R.string.no_description) :
-                permissionData.longDescription);
+                permissionData.description);
         contentTextView.setVisibility(View.GONE);
         bucketIcon.setImageResource(getBucketIconRes(permissionData.permission, res));
 
