@@ -226,7 +226,7 @@ public class XposedMod implements IXposedHookLoadPackage {
                             if (index == 0) {
                                 TextView textView = (TextView) layoutInflater.inflate(
                                         getLayoutRes("no_permissions_required", res), viewGroup, false);
-                                textView.setText(Html.fromHtml(res.getString(getStringRes("no_new_permissions", res),
+                                textView.setText(Html.fromHtml(res.getString(getStringRes("no_new_dangerous_permissions", res),
                                         getOwnString(context, R.string.this_application))));
                                 return textView;
                             } else {
