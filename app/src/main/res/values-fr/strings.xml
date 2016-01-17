@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PlayPermissionsExposed</string>
-    <string name="xposed_description">Affiche toutes les permissions du Play Store, n\'ignore/cache plus ~40 permissions
-        et désactive la mise à jour automatique lorsque de nouvelles permissions ont été ajoutées.</string>
+    <string name="xposed_description">Affiche toutes les autorisations du Play Store, n\'ignore/cache plus ~40 autorisations
+        et désactive la mise à jour automatique lorsque de nouvelles autorisations sont ajoutées.</string>
 
-    <string name="existing_permissions">%1$d permissions. Plus de détails.</string>
+    <string name="existing_permissions">%1$d autorisations. Plus de détails.</string>
     <string name="this_application">Cette application</string>
     <string name="no_description">Aucune description disponible.</string>
 </resources>
