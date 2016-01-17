@@ -1,6 +1,22 @@
-.idea/
+# generated
 bin/
 gen/
 out/
 *.apk
+*.ap_
+*.o
+*.so
+*.class
+*.dex
+*.apk
+
+# gradle files
+.gradle/
+build/
+
+# local configuration file
+local.properties
+
+# Android Studio
+.idea/
 *.iml
