@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PlayPermissionsExposed</string>
+    <string name="xposed_description">Zobrazí všechna oprávnění v Play Store, přestane skrývat/ignorovat cca 40 oprávnění, 
+    a také vypíná automatické aktualizace, pokud jsou přidána nová oprávnění.</string>
+
+    <string name="existing_permissions">%1$d oprávnění. Klepni pro detaily.</string>
+    <string name="this_application">Tato aplikace</string>
+    <string name="no_description">Popis není k dispozici.</string>
+</resources>
